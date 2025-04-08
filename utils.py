@@ -5,7 +5,8 @@ from config import keys
 class ConvertionException(Exception):
     pass
 class CryptoConverter:
-    def convert(self, quote: str, base: str, amount: str):
+    @staticmethod
+    def convert(quote: str, base: str, amount: str):
         if quote == base:
             raise ConvertionException(f"Невозможно перевести одинаковые валюты {base}")
         try:
