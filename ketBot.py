@@ -25,13 +25,15 @@ def convert(message: telebot.types.Message):
             raise ConvertionException("Слишком много параметров!")
         quote, base, amount = values
         total_base = CryptoConverter.convert(quote, base, amount)
+        total_base_with_increase = total_base * amount
 
     except ConvertionException as e:
         bot.reply_to(message, f"Ошибка пользователя:\n{e}")
     except Exception as e:
         bot.reply_to(message, f"Не удалось обработать команду:\n{e}")
     else:
-        text = f"Цена {amount} {quote} в {base} составляет {total_base}"
+        text = f"Цена {amount} {quote} в {base} составляет {total_base}\n"
+        f"После увелечения: {total_base_with_increase}"
         bot.send_message(message.chat.id, text)
 
 bot.polling()
